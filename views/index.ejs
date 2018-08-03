@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <title>Sockets</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+    <script type ="text/javascript">
+    $(document).ready(function (){
+        var socket = io();  
+        $("button").click(function(event){
+                event.preventDefault();
+                let color=$(this).val();
+                console.log(color)
+            socket.emit('color',{color:color})
+        });
+        socket.on('show',function(data){
+            $('body').css('background-color',data.color)
+                console.log(data.color)
+        })
+    }); 
+    </script>
+    <style>
+       
+        .jumbotron{
+            color:black;
+            font-family:fantasy;
+            font-size: 2em;
+        }
+        
+    </style>
+</head>
+<body>
+
+    <div  class="container">
+        <div class="row">
+            <button class="jumbotron text-center col-3 mr-auto mx-4"  value="red" > red</button>
+            <button class="jumbotron text-center col-3 mr-auto mx-4" value="blue" > blue</button>
+            <button class="jumbotron text-center col-3 mr-auto mx-4" value="pink" > pink </button>
+        </div>
+    </div>
+</body>
+</html>
